@@ -3,8 +3,6 @@ import { MovieImage } from "../MovieImage/MovieImage";
 import Link from "next/link";
 
 export function MovieItem({movie}){
-    const dispatch = useDispatch();
-    const favoriteMovies = useSelector((state) => state.favorite.movies);
 
     return(
         <div className={styles.movie}>
@@ -18,7 +16,7 @@ export function MovieItem({movie}){
                 </div>
             </div>
             <div className={styles.movieFooter}>
-                <Link href={`/movie/${movie.id}`}>Ver Detalhes</Link>
+                <Link href={`/movies/${movie.id}`}>Ver Detalhes</Link>
             </div>
         </div>
     )

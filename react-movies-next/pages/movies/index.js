@@ -1,17 +1,12 @@
-import { MoviesList } from '@/components/components/MoviesList/MoviesList';
-import { SearchMovies } from '@/components/components/SearchMovies/SearchMovies';
+import { MoviesList } from '@/components/MoviesList/MoviesList';
+import { SearchMovies } from '@/components/SearchMovies/SearchMovies';
 import { useSearchMovieByTitle } from '@/hooks/useSearchMovieByTitle';
 import { MoviesService } from '@/services/MoviesService';
-import { useState } from 'react';
+import {  useState } from 'react';
 
-export default function Movies() {
-  const [movies, setMovies] = useState("");
+export default function Movies({ movies }) {
   const [searchQuery, setSearchQuery] = useState("");
   const searchResults = useSearchMovieByTitle(searchQuery);
-
-  MoviesService.getMovies().then(({ data }) => {
-    setMovies(data.results)
-  })
 
   function handleOnSearch(movieTitle) {
     setSearchQuery(movieTitle);
@@ -23,4 +18,12 @@ export default function Movies() {
       <MoviesList movies={searchResults.length > 0 ? searchResults : movies} />
     </>
   );
+}
+
+export async function getStaticProps() {
+  const { data } = await MoviesService.getMovies();
+
+  return {
+    props: { movies: data.results }
+  }
 }

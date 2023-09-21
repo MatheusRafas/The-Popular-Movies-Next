@@ -1,10 +1,8 @@
+import { MoviesService } from "@/services/MoviesService";
 import { MovieImage } from "../../components/MovieImage/MovieImage";
 import styles from "@/styles/MovieDetails.module.css";
-import { MovieRecommendations } from "../../components/MovieRecommendations/MovieRecommendations";
 
-export function MovieDetails(){
-    const { movieId } = useParams();
-    console.log(router.query.movieId)
+export default function MovieDetails({ movie }){
     return (
         <article className={styles.movie}>
             <section>
@@ -17,8 +15,24 @@ export function MovieDetails(){
                     </div>
                 </div>
             </section>
-            
-            <MovieRecommendations movieId={movieId}/>
         </article>
-    )
+    );
+}
+
+export async function getStaticPaths() {
+    const { data } = await MoviesService.getMovies();
+
+    const paths = data.results.map((movie) => ({
+        params: { movieId: `${movie.id}`},
+    }));
+
+    return { paths, fallback: false };
+}
+
+export async function getStaticProps({ params }) {
+    const { data } = await MoviesService.getMovieDetail(params.movieId);
+
+    return {
+        props: { movie: data },
+    }
 }
