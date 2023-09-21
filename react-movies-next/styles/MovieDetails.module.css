@@ -1,0 +1,9 @@
+.movie{
+    display: flex;
+    padding: 15px;
+
+}
+
+.movieInfo{
+    text-align: center;
+}

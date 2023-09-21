@@ -1,0 +1,14 @@
+.searchContainer{
+    width: 450px;
+    margin: 0 auto;
+}
+
+.searchContainer input{
+    font-size: 18px;
+}
+
+.searchContainer input{
+    border: 1px solid black;
+    padding: 5px 1px;
+    
+}
